@@ -6,7 +6,6 @@ import torchvision
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 from model import DeepNet
-import time
 
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -58,7 +57,7 @@ scheduler = optim.lr_scheduler.OneCycleLR(
 )
 
 print(f"Starting Training for {EPOCHS} epochs...")
-start_time = time.time()
+
 
 for epoch in range(EPOCHS):
     net.train()
@@ -87,7 +86,6 @@ for epoch in range(EPOCHS):
         current_lr = optimizer.param_groups[0]['lr']
         print(f"Epoch [{epoch+1}/{EPOCHS}] | Loss: {running_loss/len(trainloader):.4f} | Acc: {train_acc:.2f}% | LR: {current_lr:.6f}")
 
-print(f"Training Finished! Total time: {(time.time() - start_time)/60:.1f} minutes")
 
 
 print("Running TTA Evaluation...")
